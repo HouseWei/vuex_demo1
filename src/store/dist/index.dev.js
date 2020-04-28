@@ -53,6 +53,16 @@ var _default = new _vuex["default"].Store({
       if (i !== -1) {
         state.list.splice(i, 1);
       }
+    },
+    // 修改列表项的选中状态
+    changeStatus: function changeStatus(state, param) {
+      var i = state.list.findIndex(function (x) {
+        return x.id === param.id;
+      });
+
+      if (i !== -1) {
+        state.list[i].done = param.status;
+      }
     }
   },
   actions: {
