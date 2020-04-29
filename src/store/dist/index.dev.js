@@ -91,6 +91,26 @@ var _default = new _vuex["default"].Store({
       return state.list.filter(function (x) {
         return x.done === false;
       }).length;
+    },
+    //
+    infoList: function infoList(state) {
+      if (state.viewKey === 'all') {
+        return state.list;
+      }
+
+      if (state.viewKey === 'unDone') {
+        return state.list.filter(function (x) {
+          return !x.done;
+        });
+      }
+
+      if (state.viewKey === 'done') {
+        return state.list.filter(function (x) {
+          return x.done;
+        });
+      }
+
+      return state.list;
     }
   }
 });
