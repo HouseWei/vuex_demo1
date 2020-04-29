@@ -22,7 +22,8 @@ var _default = new _vuex["default"].Store({
     // 文本框的内容
     inputValue: 'aaa',
     // 下一个 id
-    nextId: 5
+    nextId: 5,
+    viewKey: 'all'
   },
   mutations: {
     initList: function initList(state, list) {
@@ -63,6 +64,16 @@ var _default = new _vuex["default"].Store({
       if (i !== -1) {
         state.list[i].done = param.status;
       }
+    },
+    // 清除已完成的任务
+    cleanDone: function cleanDone(state) {
+      state.list = state.list.filter(function (x) {
+        return x.done === false;
+      });
+    },
+    // 修改视图的关键字
+    changeViewKey: function changeViewKey(state, key) {
+      state.viewKey = key;
     }
   },
   actions: {
@@ -74,7 +85,14 @@ var _default = new _vuex["default"].Store({
       });
     }
   },
-  modules: {}
+  getters: {
+    // 统计未完成任务条数
+    unDoneLength: function unDoneLength(state) {
+      return state.list.filter(function (x) {
+        return x.done === false;
+      }).length;
+    }
+  }
 });
 
 exports["default"] = _default;

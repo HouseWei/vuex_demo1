@@ -11,7 +11,8 @@ export default new Vuex.Store({
     // 文本框的内容
     inputValue: 'aaa',
     // 下一个 id
-    nextId: 5
+    nextId: 5,
+    viewKey: 'all'
   },
   mutations: {
     initList (state, list) {
@@ -47,6 +48,14 @@ export default new Vuex.Store({
       if (i !== -1) {
         state.list[i].done = param.status
       }
+    },
+    // 清除已完成的任务
+    cleanDone (state) {
+      state.list = state.list.filter(x => x.done === false)
+    },
+    // 修改视图的关键字
+    changeViewKey (state, key) {
+      state.viewKey = key
     }
   },
   actions: {
@@ -57,6 +66,10 @@ export default new Vuex.Store({
       })
     }
   },
-  modules: {
+  getters: {
+    // 统计未完成任务条数
+    unDoneLength (state) {
+      return state.list.filter(x => x.done === false).length
+    }
   }
 })
